@@ -11,16 +11,14 @@ pipeline {
          stage ("terraform init") {
              steps {
                  sh ("terraform init -reconfigure") 
-                 steps {
-                sh ('terraform plan -lock=false')
-             }
+                     }
          }
          }
         
         stage ("terraform Plan") {
             steps {
                 sh ("terraform plan") 
-                sh 'terraform plan -lock=false'
+             
         }
         }
     
@@ -33,4 +31,4 @@ pipeline {
 }
            }
         }
-}
+
