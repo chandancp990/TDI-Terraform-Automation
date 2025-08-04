@@ -9,7 +9,30 @@ resource "aws_vpc" "main" {
     Name = "main"
   }
 }
-
+/* new changes */
+# Create Internet Gateway
+resource "aws_internet_gateway" "igw" {
+  vpc_id = aws_vpc.main.id
+  tags = {
+    Name = "main-igw"
+  }
+}
+# Create a Route Table
+resource "aws_route_table" "main_route" {
+  vpc_id = aws_vpc.main.id
+  route {
+    cidr_block = "0.0.0.0/0"
+    gateway_id = aws_internet_gateway.igw.id
+  }
+  tags = {
+    Name = "main-route"
+  }
+}
+# Associate the route table with the subnet
+resource "aws_route_table_association" "a" {
+  subnet_id      = aws_subnet.main_subnet.id
+  route_table_id = aws_route_table.main_route.id
+}
 #Create security group with firewall rules
 resource "aws_security_group" "my_sg" {
   name        = "my-security-group"
