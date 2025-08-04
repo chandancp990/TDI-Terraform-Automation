@@ -5,7 +5,7 @@ provider "aws" {
 resource "aws_subnet" "main_subnet" {
   vpc_id                  = aws_vpc.main.id
   cidr_block              = "172.16.1.0/24"
-  availability_zone       = "ap-south-1a"
+  availability_zone       = "us-east-1"
   map_public_ip_on_launch = true
   tags = {
     Name = "main-subnet"
